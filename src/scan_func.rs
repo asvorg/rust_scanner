@@ -61,7 +61,25 @@ impl ScanFunc {
         reader.read_until(b'\n', &mut buffer).expect("Could not read into buffer");
         String::from_utf8(buffer).expect("Could not write buffer as string")
     }
-    
+
+    pub fn simple_scan_most_common_ports() {
+        println!("Enter IP address to scan:");
+        let mut input = String::new();
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read line");
+        let ip_address = input.trim().to_string();
+
+        for port in Self::COMMON_PORTS.iter() {
+            if ScanFunc::connect(&ip_address, *port) {
+                println!("Port {} is open", port);
+            }
+            else{
+                println!("Port {} is closed", port);
+            }
+        }
+    }
+
     const COMMON_PORTS: [u16; 40] = [
     80,    // HTTP
     443,   // HTTPS
@@ -104,6 +122,5 @@ impl ScanFunc {
     9418,  // Git (Gitsync)
     27017, // MongoDB
 ];
-
     
 }    
