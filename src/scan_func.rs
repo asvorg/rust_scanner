@@ -62,4 +62,48 @@ impl ScanFunc {
         String::from_utf8(buffer).expect("Could not write buffer as string")
     }
     
+    const COMMON_PORTS: [u16; 40] = [
+    80,    // HTTP
+    443,   // HTTPS
+    21,    // FTP
+    22,    // SSH
+    25,    // SMTP
+    110,   // POP3
+    143,   // IMAP
+    53,    // DNS
+    3389,  // RDP
+    137,   // NetBIOS
+    138,   // NetBIOS
+    139,   // NetBIOS
+    445,   // SMB
+    3306,  // MySQL
+    5432,  // PostgreSQL
+    8080,  // HTTP Alternate
+    23,    // Telnet
+    179,   // BGP (Border Gateway Protocol)
+    465,   // SMTPS (SMTP Secure)
+    587,   // SMTP (Message Submission)
+    636,   // LDAPS (LDAP Secure)
+    993,   // IMAPS (IMAP Secure)
+    995,   // POP3S (POP3 Secure)
+    1723,  // PPTP (Point-to-Point Tunneling Protocol)
+    2049,  // NFS (Network File System)
+    3268,  // Global Catalog (LDAP)
+    3269,  // Global Catalog (LDAP Secure)
+    5433,  // Redis
+    5985,  // WinRM (Windows Remote Management)
+    5986,  // WinRM (Windows Remote Management Secure)
+    8081,  // HTTP Alternate
+    8443,  // HTTPS Alternate
+    9000,  // SonarQube
+    9090,  // Openfire
+    9091,  // Openfire Secure
+    9100,  // Printer (JetDirect)
+    9200,  // Elasticsearch REST API
+    9300,  // Elasticsearch Transport
+    9418,  // Git (Gitsync)
+    27017, // MongoDB
+];
+
+    
 }    
