@@ -1,3 +1,4 @@
+use std::io::BufRead;
 use std::net;
 use std::io;
 
@@ -5,11 +6,18 @@ pub struct ScanFunc;
 impl ScanFunc {
 
     pub fn connect(ip: &str, port: u16) -> bool {
-        let socket = net::TcpStream::connect((ip, port));
-        match socket {
-            Ok(_) => true,
-            Err(_) => false,
-        }
+        // Attempt to connect to the server.
+        let socket = match net::TcpStream::connect((ip, port)) {
+            Ok(socket) => socket,
+            Err(_) => {
+                println!("Failed to connect to {}:{}", ip, port);
+                return false;
+            }
+        };
+        // Get the response from the server.
+        let response = ScanFunc::get_server_response(socket);
+        println!("Response: {}", response);
+        return true;
     }
 
     pub fn basic_scan_params() -> (String, u16, u16) {
@@ -46,4 +54,12 @@ impl ScanFunc {
             }
         }
     }
+
+    fn get_server_response(socket: net::TcpStream) -> String {
+        let mut reader = io::BufReader::new(socket);
+        let mut buffer: Vec<u8> = Vec::new();
+        reader.read_until(b'\n', &mut buffer).expect("Could not read into buffer");
+        String::from_utf8(buffer).expect("Could not write buffer as string")
+    }
+    
 }    
