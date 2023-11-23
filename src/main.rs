@@ -14,6 +14,13 @@ fn do_selection(selection:u32){
         3 => {
             scan_func::ScanFunc::simple_scan_most_common_ports();
         },
+        4 => {
+            let (ip_address, min_port, max_port) = scan_func::ScanFunc::basic_scan_params();
+            scan_func::ScanFunc::basic_scan_banner(&ip_address, min_port, max_port);
+        },
+        5 => {
+            scan_func::ScanFunc::ping_for_ip();
+        }
         _ => {
             println!("Invalid selection");
         }
